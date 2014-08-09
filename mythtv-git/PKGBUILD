@@ -10,7 +10,7 @@
 #  - disabled vdpau, mmx, incompatible ARM FPUs
 
 pkgname=mythtv-git
-pkgver=0.27.1
+pkgver=0.27.3
 pkgrel=1
 epoch=90
 pkgdesc="A Homebrew PVR project - 0.27/fixes branch"
@@ -20,8 +20,8 @@ license=('GPL')
 depends=('avahi' 'fftw' 'lame' 'libass' 'libavc1394' 'libcdio' 'libiec61883'
          'libpulse' 'libxinerama' 'lirc-utils' 'mariadb-clients'
          'mysql-python' 'perl-dbd-mysql' 'perl-io-socket-inet6' 'perl-libwww'
-         'perl-net-upnp' 'python2-lxml' 'qtwebkit' 'taglib' 'urlgrabber' 'x264')
-makedepends=('glew' 'libxml2' 'mesa' 'mesa-libgl' 'openssl' 'yasm' 'git')
+         'perl-net-upnp' 'python2-lxml' 'qtwebkit' 'taglib' 'urlgrabber' 'libx264')
+makedepends=('glew' 'libxml2' 'mesa' 'mesa-libgl' 'openssl' 'yasm' 'x264' 'git')
 optdepends=('glew: for GPU commercial flagging'
             'libcec: for consumer electronics control capabilities'
             'libxml2: to read blu-ray metadata'
@@ -59,6 +59,7 @@ prepare() {
               --enable-libx264 \
               --disable-vaapi \
               --python=python2 \
+              --perl-config-opts=INSTALLDIRS=vendor \
               --disable-neon $CONFIG
 }
 
