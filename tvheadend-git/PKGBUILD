@@ -3,15 +3,14 @@
 
 pkgname=tvheadend-git
 _gitname='tvheadend'
-#_gitbranch='release/3.4'
 _gitbranch=master
-pkgver=3.5.243~g2b64995
+pkgver=3.9
 pkgrel=1
-pkgdesc="TV streaming server for Linux"
-arch=('i686' 'x86_64')
+pkgdesc="TV streaming server for Linux - master branch"
+arch=('arm' 'i686' 'x86_64')
 url="http://www.lonelycoder.com/hts/tvheadend_overview.html"
 license=('GPL3')
-depends=('avahi' 'openssl' 'python2')
+depends=('avahi' 'ffmpeg' 'openssl' 'python2' 'zlib')
 makedepends=('git')
 optdepends=('xmltv: For an alternative source of programme listings')
 provides=('tvheadend')
