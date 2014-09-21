@@ -29,7 +29,7 @@ prepare() {
 
     cd ${srcdir}/${_gitname}
     msg " Starting configure..."
-    ./configure --prefix=/usr --cpu="$ARCH" --mandir=/usr/share/man/man1 --python=python2 --release
+    ./configure --prefix=/usr --cpu="$ARCH" --mandir=/usr/share/man --python=python2 --release
 }
 
 build() {
