@@ -8,6 +8,7 @@
 # ALARM: Kevin Mihelich <kevin@archlinuxarm.org>
 #  - correctly define ARM cpus for configure
 #  - disabled vdpau, mmx, incompatible ARM FPUs
+#  - ffmpeg backport to fix building on GCC 4.8
 
 pkgname=mythtv-git
 pkgver=0.27.3
@@ -17,11 +18,11 @@ pkgdesc="A Homebrew PVR project - 0.27/fixes branch"
 arch=('i686' 'x86_64' 'arm')
 url="http://www.mythtv.org/"
 license=('GPL')
-depends=('avahi' 'fftw' 'lame' 'libass' 'libavc1394' 'libcdio' 'libiec61883'
-         'libpulse' 'libxinerama' 'lirc-utils' 'mariadb-clients'
+depends=('avahi' 'fftw' 'lame' 'libass' 'libavc1394' 'libcdio' 'libiec61883' 'libgl'
+         'libpulse' 'libva' 'libvpx' 'libxinerama' 'lirc-utils' 'mariadb-clients'
          'mysql-python' 'perl-dbd-mysql' 'perl-io-socket-inet6' 'perl-libwww'
          'perl-net-upnp' 'python2-lxml' 'qtwebkit' 'taglib' 'urlgrabber' 'libx264')
-makedepends=('glew' 'libxml2' 'mesa' 'mesa-libgl' 'openssl' 'yasm' 'x264' 'git')
+makedepends=('glew' 'libcec' 'libxml2' 'mesa' 'mesa-libgl' 'openssl' 'yasm' 'x264' 'gdb' 'git')
 optdepends=('glew: for GPU commercial flagging'
             'libcec: for consumer electronics control capabilities'
             'libxml2: to read blu-ray metadata'
@@ -35,13 +36,16 @@ install='mythtv.install'
 _gitbranch='fixes/0.27'
 _gitname="mythtv"
 source=("git://github.com/MythTV/mythtv.git#branch=$_gitbranch"
-        'mythbackend.service')
+        'mythbackend.service'
+        'http://code.mythtv.org/trac/raw-attachment/ticket/11338/libcec-2-support.2.patch')
 sha256sums=('SKIP'
-            'ecfde779ded8332cc62c86fac6b432b09cbf5d254135798287ada688af9a1302')
+            'ecfde779ded8332cc62c86fac6b432b09cbf5d254135798287ada688af9a1302'
+            '8270407c2074b305e0c32151f89c84f6bf980a32665a2da8e4727405fa3911f3')
 
 prepare() {
   cd "$srcdir/$_gitname/mythtv"
   find 'bindings/python' 'contrib' -type f | xargs sed -i 's@^#!.*python$@#!/usr/bin/python2@'
+  patch -Np2 -i "$srcdir/libcec-2-support.2.patch"
 
   [[ $CARCH == "arm" ]] && ARCH="armv5te" && CONFIG="--disable-armv6 --disable-armv6t2 --disable-vfp"
   [[ $CARCH == "armv6h" ]] && ARCH="armv6l" && CONFIG="--disable-vfp"
@@ -55,9 +59,9 @@ prepare() {
               --disable-ccache \
               --enable-libfftw3 \
               --enable-libmp3lame \
-              --disable-libvpx \
+              --enable-libvpx \
               --enable-libx264 \
-              --disable-vaapi \
+              --enable-vaapi \
               --python=python2 \
               --perl-config-opts=INSTALLDIRS=vendor \
               --disable-neon $CONFIG
