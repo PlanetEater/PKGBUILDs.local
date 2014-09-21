@@ -25,13 +25,16 @@ md5sums=('SKIP'
     'bc6a5eb22716644d2ce3b4eac07bb735'
     '28dad6289dbe95961d2904fc77194ba5')
 
-build() {
+prepare() {
 
     cd ${srcdir}/${_gitname}
     msg " Starting configure..."
     ./configure --prefix=/usr --cpu="$ARCH" --mandir=/usr/share/man/man1 --python=python2 --release
+}
 
-    msg "Starting make..."
+build() {
+
+    cd ${srcdir}/${_gitname}
     make
 }
 
