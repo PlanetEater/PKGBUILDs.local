@@ -1,28 +1,29 @@
-pkgname=esr-utils-cli
-pkgver=0.24a
+pkgname=esr-utils-cli-git
+pkgver=0.24a.2~gf612ae2
 pkgrel=1
 pkgdesc="PS2 ISO patcher and unpatcher for ffgriever's ESR project"
 arch=('arm' 'i686' 'x86_64')
 url="http://psx-scene.com/forums/f164/esr-disc-patcher-linux-mac-qt4-port-60096/"
 license=('GPL')
-_gitbranch='master'
-source=("git+https://github.com/PlanetEater/${pkgname}.git#branch=${_gitbranch}")
+_gitname=esr-utils-cli
+_gitbranch=master
+source=("git+https://github.com/PlanetEater/${_gitname}.git#branch=${_gitbranch}")
 md5sums=('SKIP')
 
 build() {
-	cd ${srcdir}/${pkgname}
+	cd ${srcdir}/${_gitname}
 	make esrpatch
 	make esrunpatch
 }
 
 package() {
-	cd ${srcdir}/${pkgname}
+	cd ${srcdir}/${_gitname}
 	install -Dm755 esrpatch "${pkgdir}/usr/bin/esrpatch"
 	install -Dm755 esrunpatch "${pkgdir}/usr/bin/esrunpatch"
 }
 
 pkgver() {
-	cd $srcdir/${pkgname}
+	cd $srcdir/${_gitname}
 	# Use the tag of the last commit (x.y.z.<no_of_commits>~<commit_hash>)
 	git describe --tags --always --long | sed -e 's/^v//' -e 's/-/./g' -e 's/\(.*\)\.\(.*\)/\1~\2/'
 	}
