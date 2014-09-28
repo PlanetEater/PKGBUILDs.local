@@ -1,4 +1,4 @@
-pkgname=esr-utils
+pkgname=esr-utils-cli
 pkgver=0.24
 pkgrel=1
 pkgdesc="PS2 ISO patcher and unpatcher for ffgriever's ESR project"
