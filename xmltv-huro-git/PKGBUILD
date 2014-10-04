@@ -4,7 +4,7 @@
 # Contributor: Andrew Simmons <andrew.simmons@gmail.com>
 
 pkgname=xmltv-huro-git
-pkgver=0.5.65.4~geb7d274
+pkgver=0.5.65
 pkgrel=1
 pkgdesc="Set of utilities to download tv listings and format them in xml - huro grabber only"
 arch=('any')
