@@ -31,7 +31,7 @@ prepare() {
 	if [ -f Makefile ] ; then
 		make distclean
 	fi
-	perl Makefile.PL PREFIX=/usr INSTALLDIRS=vendor --components tv_grab_huro
+	perl Makefile.PL PREFIX=/usr INSTALLDIRS=vendor --components "tv_grab_huro tv_grab_huro_new"
 }
 
 build() {
