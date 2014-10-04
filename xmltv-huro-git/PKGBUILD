@@ -1,0 +1,53 @@
+# Maintainer: Kåre Hampf <khampf@users.sourceforge.net>
+# Submitter: Stefan Husmann <stefan-husmann@t-online.de>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: Andrew Simmons <andrew.simmons@gmail.com>
+
+pkgname=xmltv-huro-git
+pkgver=0.5.65.4~geb7d274
+pkgrel=1
+pkgdesc="Set of utilities to download tv listings and format them in xml - huro grabber only"
+arch=('any')
+url="http://xmltv.org/wiki/"
+license=('GPL')
+depends=('perl-archive-zip' 'perl-datetime' 'perl-date-manip' 
+  'perl-file-slurp' 'perl-datetime-format-strptime' 'perl-datetime-locale' 
+  'perl-http-cache-transparent' 'perl-http-response-encoding' 
+  'perl-html-tree' 'perl-io-stringy' 'perl-lingua-en-numbers-ordinate' 
+  'perl-lingua-preferred' 'perl-soap-lite' 'perl-term-progressbar'
+  'perl-term-readkey' 'perl-timedate' 'perl-tk-tablematrix' 
+  'perl-unicode-string' 'perl-unicode-utf8simple' 'perl-www-mechanize'
+  'perl-xml-dom' 'perl-xml-libxml' 'perl-xml-libxslt' 'perl-xml-simple'
+  'perl-xml-twig' 'perl-xml-writer' 'perl-parse-recdescent')
+_oname=xmltv
+source=("git+file:///usr/src/mirrors/xmltv.cvs.git/xmltv")
+md5sums=('SKIP')
+provides=('xmltv')
+conflicts=('xmltv')
+
+prepare() {
+	cd ${srcdir}/${_oname}
+# Avoid warning about already existing (generated) Makefile
+	if [ -f Makefile ] ; then
+		make distclean
+	fi
+	perl Makefile.PL PREFIX=/usr INSTALLDIRS=vendor --components tv_grab_huro
+}
+
+build() {
+	cd ${srcdir}/${_oname}
+	make
+}
+package() {
+  cd ${srcdir}/${_oname}
+  make DESTDIR=${pkgdir} PREFIX=/usr install
+
+  # remove perllocal.pod and .packlist
+  find ${pkgdir} -name perllocal.pod -delete
+  find ${pkgdir} -name .packlist -delete
+}
+
+pkgver() {
+    cd "$srcdir/${_oname}"
+    git describe --always | sed -e 's|patch|p|' -e 's|^v||' -e 's|-|.|' -e 's|-|~|'
+}
