@@ -13,7 +13,6 @@
 pkgname=mythtv-git
 pkgver=0.27.3
 pkgrel=1
-epoch=90
 pkgdesc="A Homebrew PVR project - 0.27/fixes branch"
 arch=('i686' 'x86_64' 'arm')
 url="http://www.mythtv.org/"
