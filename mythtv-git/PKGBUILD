@@ -11,7 +11,7 @@
 #  - ffmpeg backport to fix building on GCC 4.8
 
 pkgname=mythtv-git
-pkgver=0.27.3
+pkgver=0.27
 pkgrel=1
 pkgdesc="A Homebrew PVR project - 0.27/fixes branch"
 arch=('i686' 'x86_64' 'arm')
