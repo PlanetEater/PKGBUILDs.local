@@ -3,10 +3,10 @@
 
 pkgname=tvheadend-git
 _gitname='tvheadend'
-_gitbranch=master
-pkgver=3.9
+pkgver=4.0
+_gitbranch='release/4.0'
 pkgrel=1
-pkgdesc="TV streaming server for Linux - master branch"
+pkgdesc="TV streaming server for Linux - git $_gitbranch branch"
 arch=('arm' 'i686' 'x86_64')
 url="http://www.lonelycoder.com/hts/tvheadend_overview.html"
 license=('GPL3')
