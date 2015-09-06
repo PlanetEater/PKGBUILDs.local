@@ -16,22 +16,22 @@ source=('hg+https://bitbucket.org/ifcaro/open-ps2-loader'
 md5sums=('SKIP'
 	'c10af0cbf0b493b61d2dfe7dd817e658'
 	'8d6b241afb7e1f50c2ec02f0d4fe6d28')
-_hgrepo=open-ps2-loader
+reponame=open-ps2-loader
 
 prepare() {
-	cd "${srcdir}/${_hgrepo}"
+	cd "${srcdir}/${reponame}"
 	patch -Np1 -i "${srcdir}/remove_missing_includes.patch"
 	patch -Np1 -i "${srcdir}/omit_jobserver_warning.patch"
 }
 
 build() {
-	cd "${srcdir}/${_hgrepo}"
+	cd "${srcdir}/${reponame}"
 	make pc_tools
 }
 
 package() {
 	mkdir --parents "${pkgdir}/usr/bin"
-	cd "${srcdir}/${_hgrepo}"
+	cd "${srcdir}/${reponame}"
 	for _binfile in pc/*/bin/*; do
 		msg " Installing ${_binfile}"
 		cp -r ${_binfile} "${pkgdir}/usr/bin/"
@@ -39,6 +39,6 @@ package() {
 }
 
 pkgver() {
-	cd "${srcdir}/${_hgrepo}"
+	cd "${srcdir}/${reponame}"
 	hg log -r . --template '{latesttag}-{latesttagdistance}-{node|short}' | sed -e 's/-/~/g'
 }
