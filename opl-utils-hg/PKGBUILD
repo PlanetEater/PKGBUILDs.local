@@ -1,6 +1,6 @@
 # Maintainer: krz <krz@freemail.hu>
 pkgname=opl-utils-hg
-pkgver=646
+pkgver=dynamic
 pkgrel=1
 pkgdesc="PC utilities from the Open PS2 Loader project"
 arch=('any')
@@ -36,4 +36,9 @@ package() {
 		msg " Installing ${_binfile}"
 		cp -r ${_binfile} "${pkgdir}/usr/bin/"
 	done
+}
+
+pkgver() {
+	cd "${srcdir}/${_hgrepo}"
+	hg log -r . --template '{latesttag}-{latesttagdistance}-{node|short}' | sed -e 's/-/~/g'
 }
