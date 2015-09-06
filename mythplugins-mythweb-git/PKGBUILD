@@ -6,9 +6,9 @@ pkgrel=1
 arch=('i686' 'x86_64' 'arm')
 url="http://www.mythtv.org"
 license=('GPL')
-makedepends=("mythtv" 'git')
+makedepends=('mythtv' 'git')
 pkgdesc="Web interface for MythTV's backend 0.26-fixes"
-depends=("mythtv")
+depends=('mythtv')
 optdepends=('php-apache'
               'lighttpd')
 replaces=('mythplugins-mythweb')
