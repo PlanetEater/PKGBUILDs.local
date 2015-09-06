@@ -1,6 +1,6 @@
 # Maintainer: krz <krz@freemail.hu>
 pkgname=opl-utils-hg
-pkgver=dynamic
+pkgver=0.9.2
 pkgrel=1
 pkgdesc="PC utilities from the Open PS2 Loader project"
 arch=('any')
@@ -11,17 +11,17 @@ makedepends=('mercurial')
 provides=('opl-utils')
 conflicts=('opl-utils')
 source=('hg+https://bitbucket.org/ifcaro/open-ps2-loader'
-	'remove_missing_includes.patch'
-	'omit_jobserver_warning.patch')
-md5sums=('SKIP'
-	'c10af0cbf0b493b61d2dfe7dd817e658'
-	'8d6b241afb7e1f50c2ec02f0d4fe6d28')
+	'001-omit_jobserver_warning.patch'
+	'002-remove_missing_includes.patch')
+sha256sums=('SKIP'
+	'bff15adc33494b9634cdd70ac285a087846bb0a3e7abf8364d46cfbff134969a'
+	'fb197251e596109b7e0e200187edecdba1e2576b9fd6c6f2361d8b305bf13400')
 reponame=open-ps2-loader
 
 prepare() {
 	cd "${srcdir}/${reponame}"
-	patch -Np1 -i "${srcdir}/remove_missing_includes.patch"
-	patch -Np1 -i "${srcdir}/omit_jobserver_warning.patch"
+	patch -Np0 -i "${srcdir}/001-omit_jobserver_warning.patch"
+	patch -Np0 -i "${srcdir}/002-remove_missing_includes.patch"
 }
 
 build() {
