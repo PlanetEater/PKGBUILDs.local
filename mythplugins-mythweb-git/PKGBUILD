@@ -7,7 +7,7 @@ arch=('i686' 'x86_64' 'arm')
 url="http://www.mythtv.org"
 license=('GPL')
 makedepends=('mythtv' 'git')
-pkgdesc="Web interface for MythTV's backend 0.26-fixes"
+pkgdesc="Web interface for MythTV's backend (git fixes/0.28 branch)"
 depends=('mythtv' 'php-cgi')
 optdepends=('php-apache'
               'lighttpd')
@@ -15,7 +15,7 @@ replaces=('mythplugins-mythweb')
 conflicts=('mythplugins-mythweb')
 
 _gitname="mythweb"
-_gitbranch="fixes/0.27"
+_gitbranch="fixes/0.28"
 
 source=("git://github.com/MythTV/mythweb.git#branch=${_gitbranch}"
     'mythweb.ini' )
